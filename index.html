@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bored API</title>
+    <style>
+        .color {
+            color: #154b5c;
+        }
+
+        #types {
+            color: red;
+        }
+
+        #activities {
+            color: #0c8f1d;
+        }
+        #explore-link{
+            text-decoration: none;
+            color: #130c74;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section>
+            <div>
+                <span>Activities</span>
+                <h1 class="color">All Activities: <span id="activities"></span></h1>
+                <h2 class="color">Activities Types: <span id="types"></span></h2>
+                <h3>Learn From: <a id="explore-link" href="">Visited This site</a></h3>
+            </div>
+        </section>
+    </main>
+    <script>
+        function getActivity() {
+            fetch('http://www.boredapi.com/api/activity/')
+                .then(promise => promise.json())
+                .then(data => {
+                    document.getElementById('activities').innerText = data.activity;
+                    document.getElementById('types').innerText = data.type;
+                })
+                .catch(error => console.log(error));
+        }
+        getActivity();
+        setInterval(() => {
+            getActivity()
+        }, 5000);
+    </script>
+</body>
+
+</html>
