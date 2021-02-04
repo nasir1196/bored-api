@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Am I</title>
+    <style>
+        #user-name {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section>
+            <div>
+                <h1>Name: <span id="user-name"></span></h1>
+            </div>
+        </section>
+    </main>
+    <script>
+        function getUserName() {
+            fetch('https://randomuser.me/api/')
+                .then(promise => promise.json())
+                .then(data => {
+                    const user = data.results[0];
+                    const userName = user.name;
+                    const userFullName = `${userName.title} ${userName.first} ${userName.last}`;
+                    document.getElementById('user-name').innerText = userFullName;
+                    // console.log(userFullName);
+                }).catch(error => console.log(error));
+        }
+        getUserName();
+        setInterval(() => {
+            getUserName()
+        }, 2000);
+    </script>
+</body>
+
+</html>
